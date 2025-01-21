@@ -1,7 +1,7 @@
 {
-  "name": "Mecster09 Web App",
-  "short_name": "Mec09 App",
-  "description": "Mecster09 Web App",
+  "name": "Gareth Phillips - Personal Website",
+  "short_name": "GP - CV",
+  "description": "Tech Leader, AI Enthusiast, Tech Geek & Gamer",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
