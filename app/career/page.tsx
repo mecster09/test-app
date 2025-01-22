@@ -1,7 +1,11 @@
+"use client"
+
 import Link from 'next/link'
 import { Timeline } from '@/components/timeline'
 import { Button } from "@/components/ui/button"
-import { Home } from 'lucide-react'
+import { Home, ChevronLeft, ChevronRight, MousePointer2 } from 'lucide-react'
+import { Card, CardContent } from "@/components/ui/card"
+import { useState } from 'react'
 
 const careerEvents = [
   {
@@ -43,6 +47,12 @@ const careerEvents = [
 ]
 
 export default function Career() {
+  const [showIntro, setShowIntro] = useState(true)
+
+  const handleTimelineClick = () => {
+    setShowIntro(false)
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
@@ -54,7 +64,40 @@ export default function Career() {
           </Button>
         </Link>
       </div>
-      <Timeline events={careerEvents} />
+
+      <Card className="mb-8 bg-muted/50">
+        <CardContent className="p-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="flex items-center gap-2">
+              <ChevronLeft className="h-4 w-4" />
+              <ChevronRight className="h-4 w-4" />
+              <span className="text-sm text-muted-foreground">Scroll timeline</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MousePointer2 className="h-4 w-4" />
+              <span className="text-sm text-muted-foreground">Click milestone to view details</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Timeline 
+        events={careerEvents} 
+        onMilestoneClick={handleTimelineClick}
+      />
+
+      {showIntro && (
+        <Card className="mt-8">
+          <CardContent className="p-6">
+            <p className="text-muted-foreground leading-relaxed">
+              Welcome to my career timeline. This interactive journey showcases my professional 
+              progression from a Computer Science student to my current role as a Tech Leader. 
+              Each milestone represents a significant step in my career, with details about my 
+              roles and key achievements. Click on any milestone to explore more.
+            </p>
+          </CardContent>
+        </Card>
+      )}
     </div>
   )
 }

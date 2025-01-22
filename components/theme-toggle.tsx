@@ -12,6 +12,16 @@ import {
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
+
+  // Prevent hydration mismatch
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null // or a placeholder with the same dimensions
+  }
 
   return (
     <ToggleGroup type="single" value={theme} onValueChange={(value) => value && setTheme(value)}>

@@ -15,9 +15,10 @@ interface TimelineEvent {
 
 interface TimelineProps {
   events: TimelineEvent[]
+  onMilestoneClick?: () => void
 }
 
-export function Timeline({ events }: TimelineProps) {
+export function Timeline({ events, onMilestoneClick }: TimelineProps) {
   const [selectedEvent, setSelectedEvent] = useState<TimelineEvent | null>(null)
   const [scrollPosition, setScrollPosition] = useState(0)
   const timelineRef = useRef<HTMLDivElement>(null)
@@ -51,6 +52,11 @@ export function Timeline({ events }: TimelineProps) {
     return Math.min(Math.max((current / total) * 100, 0), 100)
   }
 
+  const handleEventClick = (event: TimelineEvent) => {
+    setSelectedEvent(event)
+    onMilestoneClick?.()
+  }
+
   return (
     <div className="relative max-w-full">
       <div className="flex items-center gap-2 mb-8">
@@ -80,7 +86,7 @@ export function Timeline({ events }: TimelineProps) {
             {sortedEvents.map((event, index) => (
               <button
                 key={index}
-                onClick={() => setSelectedEvent(event)}
+                onClick={() => handleEventClick(event)}
                 className={`flex flex-col items-center relative transition-all
                   ${selectedEvent === event ? 'scale-110' : 'hover:scale-105'}`}
               >
